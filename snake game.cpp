@@ -1,6 +1,7 @@
 #include <iostream>
 #include <conio.h>
 #include <windows.h>
+#include <cstdlib>
 
 using namespace std;
 bool gameOver;
@@ -13,29 +14,32 @@ enum direction{
 
 direction dir ;
 
-void setup(){
+void setup()
+{
 	gameOver = false;
 //snake init pos
 	dir = STOP;
 	x = width/2;
 	y = height/2;
 //fruit placement
-	fruitx = rand() % width;
-	fruity = rand() % height;
+	fruitx = (rand() % width) ;
+	fruity = (rand() % height) ;
 	score = 0;
 
 }
-void draw(){
+void draw()
+{
 	system("cls");//clear screan
-	for (int i = 0; i < width + 2; ++i)
-    	cout << "@";// printing the upper border
+	for (int i = 0; i < width + 2; i++)
+    	cout << "@";
+    	cout << endl;// printing the upper border
 
-	for (int i = 0; i < height; ++i)
+	for (int i = 0; i < height; i++)
 	{
-		for (int j = 0; j < width; ++j)
+		for (int j = 0; j < width; j++)
 		{
 			if (j == 0) //printing the left border
-				cout <<"@"; 
+				cout <<"@";
 			if (i== y && j == x)//print the init snake head
 			{
 				cout << "O";
@@ -54,28 +58,69 @@ void draw(){
 
 		}cout <<endl;
 	}
-    for (int i = 0; i < width +2; ++i){
+    for (int i = 0; i < width +2; i++){
 		cout <<'@';
 	}
-    //Sleep(60);
-	cout <<endl;
+    cout <<endl;
 }
-void input(){
-
-
-}
-void logic(){
-
-}
-
-int main()
+void input()
 {
+	if (_kbhit())
+	{
+		switch (_getch()){//this will handle the controlls
+			case 'a':
+				dir = LEFT;
+				break;
+			case 'd':
+				dir = RIGHT;
+				break;
+			case 'w':
+				dir = UP;
+				break;
+			case 's':
+				dir = DOWN;
+				break;
+			case 'x':
+				gameOver = true;
+				break;
+
+		}
+ 	}
+}
+void logic()
+{
+	switch (dir){//this will handle the controlls
+			case LEFT:
+				x--;
+				break;
+			case RIGHT:
+				x++ ;
+				break;
+			case UP:
+				y--;
+				break;
+			case DOWN:
+				y++;
+				break;
+			}
+	if (x>width || x<0 || y >height|| y<0)
+		gameOver = true;
+
+	if (x == fruitx && y == fruity)
+	{
+		score++;
+		fruitx = rand() % width;
+		fruity = rand() % height;
+	}
+}
+
+int main(){
 	setup();
 	while (!gameOver){
 		draw();
 		input();
 		logic();
-		//we can add sleep function
+		Sleep(60);//we can add sleep function
 	}
 	return 0;
 }
