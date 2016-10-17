@@ -32,10 +32,6 @@ void setup()
 void draw()
 {
 	system("cls");//clear screan
-	cout << x<<endl;
-	cout << y<<endl;
-	cout << fruitx<<endl;
-	cout << fruity<<endl;
 
 	for (int i = 0; i < width + 2; i++)
     	cout << "@";
@@ -59,18 +55,16 @@ void draw()
 			else
 			{
 				bool print = false;
-				for (int i = 0; i < nTail; i++)
+				for (int k = 0; k < nTail; k++)
 				{
-					if (tailX[i] == x && tailY[i] == y)
+					if (tailX[k] == j && tailY[k] == i)
 					{
 						cout <<"o";
 						print = true;
 					}
 				}
 				if (!print)
-				{
 					cout << " ";
-				}
 
 			}
 			if (j == width-1)
@@ -147,6 +141,7 @@ void logic()
 		score++;
 		fruitx = rand() % width;
 		fruity = rand() % height;
+		nTail++;
 	}
 }
 
