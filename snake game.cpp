@@ -8,6 +8,8 @@ bool gameOver;
 const int width = 20 ;
 const int height = 20;
 int x, y, fruitx, fruity,score;
+int tailX[100], tailY[100];
+int nTail;
 enum direction{
 	STOP = 0,LEFT,RIGHT,UP,DOWN
 };
@@ -55,7 +57,22 @@ void draw()
 			}
 
 			else
-				cout << " ";
+			{
+				bool print = false;
+				for (int i = 0; i < nTail; i++)
+				{
+					if (tailX[i] == x && tailY[i] == y)
+					{
+						cout <<"o";
+						print = true;
+					}
+				}
+				if (!print)
+				{
+					cout << " ";
+				}
+
+			}
 			if (j == width-1)
 			{
 				cout <<"@";// printing the right border
@@ -94,6 +111,20 @@ void input()
 }
 void logic()
 {
+	int prevX = tailX[0];
+    int prevY = tailY[0];
+    int prev2X, prev2Y;
+    tailX[0] = x;
+    tailY[0] = y;
+    for (int i = 1; i < nTail; i++)
+    {
+        prev2X = tailX[i];
+        prev2Y = tailY[i];
+        tailX[i] = prevX;
+        tailY[i] = prevY;
+        prevX = prev2X;
+        prevY = prev2Y;
+    }
 	switch (dir){//this will handle the controlls
 			case LEFT:
 				x--;
