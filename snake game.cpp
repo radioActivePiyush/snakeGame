@@ -22,14 +22,19 @@ void setup()
 	x = width/2;
 	y = height/2;
 //fruit placement
-	fruitx = (rand() % width) ;
-	fruity = (rand() % height) ;
+	fruitx = rand() % width;
+	fruity = rand() % height ;
 	score = 0;
 
 }
 void draw()
 {
 	system("cls");//clear screan
+	cout << x<<endl;
+	cout << y<<endl;
+	cout << fruitx<<endl;
+	cout << fruity<<endl;
+
 	for (int i = 0; i < width + 2; i++)
     	cout << "@";
     	cout << endl;// printing the upper border
@@ -44,7 +49,7 @@ void draw()
 			{
 				cout << "O";
 			}
-			else if (i == fruitx && j == fruity )//print the fruit
+			else if (j == fruitx && i == fruity )//print the fruit
 			{
 				cout << "y";
 			}
